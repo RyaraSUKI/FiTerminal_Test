@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>鼎历日期计算器</title>
+    <script>
+        function calculateDingCalendarDate() {
+            var gregorianDate = document.getElementById('gregorianDate').value;
+            var dateParts = gregorianDate.split('-');
+            var year = parseInt(dateParts[0], 10);
+            var month = parseInt(dateParts[1], 10) - 1; // JavaScript月份从0开始
+            var day = parseInt(dateParts[2], 10);
+            var date = new Date(year, month, day);
+
+            // 2024年7月20日是鼎历4000年
+            var baseYear = 2024;
+            var baseDingYear = 4000;
+            var baseDate = new Date(baseYear, 6, 20); // 7月是6月，因为JavaScript月份从0开始
+
+            // 计算两个日期之间的天数差
+            var timeDiff = date.getTime() - baseDate.getTime();
+            var daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+            // 鼎历每年增长4年
+            var dingYears = Math.floor(daysDiff * 4);
+
+            // 计算鼎历年份
+            var dingYear = baseDingYear + dingYears;
+
+            // 显示结果
+            document.getElementById('dingCalendarDate').innerText = '鼎历日期: ' + dingYear;
+        }
+    </script>
+</head>
+<body>
+    <h1>鼎历日期计算器</h1>
+    <input type="text" id="gregorianDate" placeholder="输入公历日期 (YYYY-MM-DD)">
+    <button onclick="calculateDingCalendarDate()">计算鼎历日期</button>
+    <p id="dingCalendarDate"></p>
+</body>
+</html>

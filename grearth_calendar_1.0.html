@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="mdui-theme-auto>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <link rel="stylesheet" href="/mdui/mdui.css">
+    <script src="/mdui/mdui.global.js"></script>
+    
+<title>鼎历转换器</title>
+<script>
+function convertDingli() {
+  // 获取用户输入的日期
+  var dateStr = document.getElementById("dateInput").value;
+  var date = new Date(dateStr);
+
+  // 检查日期是否有效
+  if (isNaN(date)) {
+    alert("请输入有效的日期！");
+    return;
+  }
+
+  // 计算鼎历年份
+  var baseDate = new Date(2024, 3, 25); // 鼎历元年起始日期
+  var daysDiff = (date - baseDate) / (1000 * 60 * 60 * 24);
+  var dingliYear = 3592 + Math.floor(daysDiff * 2);
+
+  // 获取用户输入的小时数
+  var hour = parseInt(document.getElementById("hourInput").value);
+
+  // 检查小时数是否有效
+  if (isNaN(hour) || hour < 1 || hour > 24) {
+    alert("请输入有效的小时数（1-24）！");
+    return;
+  }
+
+  // 计算鼎历月份
+  var dingliMonth = hour > 12 ? hour - 12 : hour;
+  dingliMonth += "月";
+
+  // 显示结果
+  var result = "鼎历" + dingliYear + "年" + dingliMonth;
+  document.getElementById("result").textContent = result;
+}
+</script>
+</head>
+<body>
+  <label for="dateInput">请输入日期（例如：2024-04-26）：</label>
+  <mdui-text-field type="date" id="dateInput"></mdui-text-field>
+  </br>
+  <label for="hourInput">请输入小时（1-24）：</label>
+  <mdui-text-field type="number" id="hourInput" min="1" max="24"></mdui-text-field>
+  </br>
+<mdui-divider></mdui-divider>
+  <mdui-button full-width onclick="convertDingli()">转换</mdui-button>
+  </br>
+  <mdui-card variant="outlined" style="width: 250px;height: 200px" id="result">结果</mdui-card>
+</body>
+</html>
